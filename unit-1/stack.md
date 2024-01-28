@@ -44,3 +44,58 @@ The time complexity of basic stack operations (push, pop, peek) is O(1), making 
 
 Stacks play a crucial role in algorithm design and are an essential concept in computer science.
 
+### Code
+```c
+// stack using linked list
+#include <stdio.h>
+#include <stdlib.h>
+struct Node{
+    int data;
+    struct Node* next;
+};
+void push(struct Node** top, int ele){
+    struct Node* newNode;
+    newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = ele;
+    newNode->next = *top;
+    *top = newNode;
+printf("Successfully inserted %d\n", ele);
+
+}
+int pop(struct Node** top){
+    if(!isEmpty(top)){
+        struct Node*temp = *top;
+        int data = temp->data;
+        *top = temp->next;
+        free(temp);
+        printf("removed %d\n", data);
+        return data;
+    }
+    return -1;
+}
+void traverse(struct Node* top){
+
+    while(top !=NULL){
+        printf("%d ", top->data);
+        top = top->next;
+    }
+    printf("\n");
+}
+int peek(struct Node* top){
+    return top->data;
+}
+int isEmpty(struct Node* top){
+    return top == NULL;
+}
+int main(){
+struct Node* top = NULL;
+    push(&top , 7);
+    push(&top , 18);
+    push(&top , 70);
+    traverse(top);
+    pop(&top);
+    traverse(top);
+    printf("peek element is: %d\n", peek(top));
+    return 0;
+}
+```
